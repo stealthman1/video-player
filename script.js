@@ -6,7 +6,7 @@ const volumeIcon = document.getElementById('volume-icon');
 const volumeRange = document.querySelector('.volume-range');
 const volumeBar = document.querySelector('.volume-bar');
 const currentTime = document.querySelector('.time-elapsed');
-const duration = document.querySelector('time-duration');
+const duration = document.querySelector('.time-duration');
 const fullscreenBtn = document.querySelector('.fullscreen');
 
 
@@ -33,9 +33,19 @@ video.addEventListener('ended', showPlayIcon);
 
 // Progress Bar ---------------------------------- //
 
+// Calculate Display time format
+function displayTime(time) {
+    const minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time % 60);
+    seconds = seconds > 9 ? seconds : `0${seconds}`;
+    return `${minutes}:${seconds}`;   
+}
+
 // Update Progress Bar as video play
 function updateProgress() {
     progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
+    currentTime.textContent = `${displayTime(video.currentTime)} /`;
+    duration.textContent = `${displayTime(video.duration)}`;
 }
 
 // Volume Controls --------------------------- //
